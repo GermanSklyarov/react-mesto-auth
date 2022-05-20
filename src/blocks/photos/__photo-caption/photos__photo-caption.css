@@ -1,0 +1,9 @@
+.photos__photo-caption {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 25px 0 26px 0;
+  max-width: 282px;
+  background-color: #fff;
+  border-radius: 0 0 10px 10px;
+}

@@ -1,0 +1,33 @@
+.profile__avatar-container {
+  position: relative;
+  margin-right: 30px;
+  border-radius: 50%;
+}
+
+.profile__avatar-container::after {
+  content: "";
+  position: absolute;
+  display: block;
+  visibility: hidden;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.8);
+  background-image: url(../../../images/edit.svg);
+  background-position: center;
+  background-repeat: no-repeat;
+  z-index: 1;
+  transition: all 0.3s linear;
+}
+
+.profile__avatar-container:hover.profile__avatar-container::after {
+  visibility: visible;
+  cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .profile__avatar-container {
+    margin: 0 0 22px 0;
+  }
+}

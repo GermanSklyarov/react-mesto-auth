@@ -1,0 +1,11 @@
+.header__container {
+  display: flex;
+  gap: 24px;
+  justify-content: space-between;
+}
+
+@media screen and (max-width: 425px) {
+  .header__container {
+    display: none;
+  }
+}

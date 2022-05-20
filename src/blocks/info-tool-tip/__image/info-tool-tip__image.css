@@ -1,0 +1,14 @@
+.info-tool-tip__image {
+  width: 120px;
+  height: 120px;
+  margin: 25px auto 32px auto;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+}
+
+@media screen and (max-width: 425px) {
+  .info-tool-tip__image {
+    margin-bottom: 40px;
+  }
+}

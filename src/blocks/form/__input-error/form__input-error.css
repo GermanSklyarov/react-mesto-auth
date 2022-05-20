@@ -1,0 +1,4 @@
+.form__input-error {
+  display: block;
+  min-height: 30px;
+}

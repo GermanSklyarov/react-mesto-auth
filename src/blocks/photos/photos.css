@@ -1,0 +1,16 @@
+.photos {
+  display: flex;
+  margin: 0 auto;
+  max-width: 880px;
+  list-style: none;
+  padding: 0;
+  gap: 20px 17px;
+  flex-wrap: wrap;
+}
+
+@media screen and (max-width: 917px) {
+  .photos {
+    max-width: calc(100% - 38px);
+    justify-content: center;
+  }
+}

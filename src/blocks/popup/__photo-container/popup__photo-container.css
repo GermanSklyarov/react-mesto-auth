@@ -1,0 +1,6 @@
+.popup__photo-container {
+  position: relative;
+  margin: 90px auto 68px auto;
+  max-width: fit-content;
+  max-height: fit-content;
+}

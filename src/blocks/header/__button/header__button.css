@@ -1,0 +1,13 @@
+.header__button {
+  width: fit-content;
+  height: fit-content;
+  background-color: transparent;
+  border-style: none;
+}
+
+@media screen and (max-width: 425px) {
+  .header__button {
+    font-size: 18px;
+    line-height: 22px;
+  }
+}

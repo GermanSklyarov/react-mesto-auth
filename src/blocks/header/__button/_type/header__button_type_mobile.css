@@ -1,0 +1,21 @@
+.header__button_type_mobile {
+  display: none;
+  margin-top: 6px;
+  width: 20px;
+  height: 20px;
+  background-size: cover;
+  background-position: center;
+  cursor: pointer;
+  opacity: 1;
+  transition: opacity 0.2s;
+}
+
+.header__button_type_mobile:hover {
+  opacity: 0.8;
+}
+
+@media screen and (max-width: 425px) {
+  .header__button_type_mobile {
+    display: block;
+  }
+}

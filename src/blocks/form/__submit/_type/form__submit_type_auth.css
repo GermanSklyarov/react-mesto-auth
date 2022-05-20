@@ -1,0 +1,11 @@
+.form__submit_type_auth {
+  margin-top: 186px;
+  color: #000;
+  background-color: #fff;
+}
+
+@media screen and (max-width: 425px) {
+  .form__submit_type_auth {
+    margin-top: 143px;
+  }
+}
