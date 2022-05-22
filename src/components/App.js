@@ -12,6 +12,7 @@ import api from '../utils/Api.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import InfoTooltip from './InfoTooltip.js';
 import successImage from '../images/success.svg';
 import errorImage from '../images/error.svg';
 import * as auth from '../auth.js';
@@ -21,6 +22,9 @@ function App() {
   const [isEditProfilePopupOpen, setIsEditProfilePopupOpen] = useState(false);
   const [isAddPlacePopupOpen, setIsAddPlacePopupOpen] = useState(false);
   const [isEditAvatarPopupOpen, setIsEditAvatarPopupOpen] = useState(false);
+  const [isInfoTooltipOpen, setIsInfoTooltipOpen] = useState(false);
+  const [infoTooltipImage, setInfoTooltipImage] = useState(successImage);
+  const [infoTooltipMessage, setInfoTooltipMessage] = useState('');
   const [selectedCard, setSelectedCard] = useState(null);
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
@@ -90,19 +94,16 @@ function App() {
     const { password, email } = this.state;
     auth.register(password, email).then((res) => {
       if (res) {
-        this.setState({
-          isInfoToolTipOpen: true,
-          image: successImage,
-          message: 'Вы успешно зарегистрировались!'
-        })
+        setIsInfoTooltipOpen(true);
+        setInfoTooltipImage(successImage);
+        setInfoTooltipMessage('Вы успешно зарегистрировались!');
       }
-    })
+    }
+    )
       .catch(() => {
-        this.setState({
-          isInfoToolTipOpen: true,
-          image: errorImage,
-          message: 'Что-то пошло не так! Попробуйте ещё раз.'
-        });
+        setIsInfoTooltipOpen(true);
+        setInfoTooltipImage(errorImage);
+        setInfoTooltipMessage('Что-то пошло не так! Попробуйте ещё раз.');
       });
   }
 
@@ -140,7 +141,15 @@ function App() {
     setIsEditProfilePopupOpen(false);
     setIsAddPlacePopupOpen(false);
     setIsEditAvatarPopupOpen(false);
+    setIsInfoTooltipOpen(false);
     setSelectedCard(null);
+  }
+
+  function closeInfoTooltip() {
+    closeAllPopups();
+    if (infoTooltipImage === successImage) {
+      history.push('/sign-in');
+    }
   }
 
   function handleCardClick(card) {
@@ -206,6 +215,8 @@ function App() {
         </Route>
         <Route path="/sign-up">
           <Register handleSubmit={handleRegisterSubmit} />
+          <InfoTooltip isOpen={isInfoTooltipOpen} message={infoTooltipMessage}
+            image={infoTooltipImage} onClose={closeInfoTooltip} />
         </Route>
         <Route>
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}

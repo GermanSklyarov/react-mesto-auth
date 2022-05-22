@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link, withRouter } from 'react-router-dom';
 import Header from './Header.js';
-import InfoToolTip from './InfoTooltip.js';
 import AuthForm from './AuthForm.js';
-import successImage from '../images/success.svg';
 
 class Register extends React.PureComponent {
   constructor(props) {
@@ -11,22 +9,9 @@ class Register extends React.PureComponent {
     this.state = {
       email: '',
       password: '',
-      isInfoToolTipOpen: false,
-      image: successImage,
     }
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.props.handleSubmit.bind(this);
-    this.closeInfoToolTip = this.closeInfoToolTip.bind(this);
-  }
-
-  closeInfoToolTip() {
-    this.setState({
-      isInfoToolTipOpen: false
-    }, () => {
-      if (this.state.image === successImage) {
-        this.props.history.push('/sign-in');
-      }
-    })
   }
 
   handleChange(e) {
@@ -46,8 +31,6 @@ class Register extends React.PureComponent {
         <p className='register__signin'>Уже зарегистрированы?
           <Link to="/sign-in" className='register__login-link'> Войти</Link>
         </p>
-        <InfoToolTip isOpen={this.state.isInfoToolTipOpen} message={this.state.message}
-          image={this.state.image} onClose={this.closeInfoToolTip} />
       </div>
     )
   }
