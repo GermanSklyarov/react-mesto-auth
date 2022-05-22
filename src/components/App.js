@@ -12,6 +12,8 @@ import api from '../utils/Api.js';
 import ProtectedRoute from './ProtectedRoute.js';
 import Login from './Login.js';
 import Register from './Register.js';
+import successImage from '../images/success.svg';
+import errorImage from '../images/error.svg';
 import * as auth from '../auth.js';
 import { CurrentUserContext } from '../contexts/CurrentUserContext.js';
 
@@ -23,7 +25,7 @@ function App() {
   const [currentUser, setCurrentUser] = useState({});
   const [cards, setCards] = useState([]);
   const [loggedIn, setLoggedIn] = useState(false);
-  const [email, setEmail] = useState({});
+  const [email, setEmail] = useState('');
   const history = useHistory();
 
   useEffect(() => {
@@ -48,6 +50,9 @@ function App() {
           history.push('/');
         }
       })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }
 
@@ -58,7 +63,47 @@ function App() {
 
   function handleLogin() {
     setLoggedIn(true);
-    console.log(loggedIn);
+  }
+
+  function handleLoginSubmit(e) {
+    e.preventDefault();
+    if (!this.state.email || !this.state.password) {
+      return;
+    }
+    auth.authorize(this.state.password, this.state.email)
+      .then((data) => {
+        if (data.token) {
+          this.setState({
+            email: '',
+            password: ''
+          }, () => {
+            this.props.handleLogin();
+            this.props.history.push('/');
+          })
+        }
+      })
+      .catch(err => console.log(err));
+  }
+
+  function handleRegisterSubmit(e) {
+    e.preventDefault();
+    const { password, email } = this.state;
+    auth.register(password, email).then((res) => {
+      if (res) {
+        this.setState({
+          isInfoToolTipOpen: true,
+          image: successImage,
+          message: 'Вы успешно зарегистрировались!'
+        })
+      }
+    })
+      .catch(() => {
+        this.setState({
+          isInfoToolTipOpen: true,
+          image: errorImage,
+          message: 'Что-то пошло не так! Попробуйте ещё раз.'
+        });
+      });
   }
 
   function handleCardLike(card) {
@@ -157,10 +202,10 @@ function App() {
           }
           } />
         <Route path="/sign-in">
-          <Login handleLogin={handleLogin} />
+          <Login handleLogin={handleLogin} handleSubmit={handleLoginSubmit} />
         </Route>
         <Route path="/sign-up">
-          <Register />
+          <Register handleSubmit={handleRegisterSubmit} />
         </Route>
         <Route>
           {loggedIn ? <Redirect to="/" /> : <Redirect to="/sign-in" />}
